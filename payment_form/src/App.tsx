@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-red-400 flex items-center justify-center flex-col">
+    <div className="min-h-screen h-full flex items-center justify-center flex-col">
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
           <Router>

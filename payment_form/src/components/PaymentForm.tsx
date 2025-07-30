@@ -36,9 +36,8 @@ export default function PaymentPage() {
     });
 
     if (error) {
-      setMessage(`❌ ${error.message}`);
+      setMessage(` ${error.message}`);
     } else {
-      // setupIntent.id or setupIntent.payment_method
       const res = await fetch("http://localhost:3000/api/save-payment-method", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +52,7 @@ export default function PaymentPage() {
         localStorage.setItem("customerId", data.customerId);
         navigate("/subscribe");
       } else {
-        setMessage("❌ خطا در ذخیره Payment Method");
+        setMessage("Error in saving Payment Method");
       }
     }
 
@@ -62,18 +61,21 @@ export default function PaymentPage() {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 500, margin: "auto" }}>
-      <h2>ورود اطلاعات پرداخت</h2>
       <input
         type="email"
         required
         value={email}
-        placeholder="ایمیل"
+        placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
-        style={{ padding: 10, marginBottom: 10, width: "100%" }}
+        className="p-3 mb-3 w-full rounded-md border-[1px]"
       />
       <PaymentElement />
-      <button type="submit" disabled={loading || !stripe}>
-        {loading ? "در حال ارسال..." : "ذخیره روش پرداخت"}
+      <button
+        type="submit"
+        disabled={loading || !stripe}
+        className="w-full bg-[#57CF7E] p-3 mt-3 rounded-md"
+      >
+        {loading ? "Processing..." : "Submit"}
       </button>
       {message && <p>{message}</p>}
     </form>
